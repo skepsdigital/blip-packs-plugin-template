@@ -51,11 +51,9 @@ const config = {
     devServer: {
         historyApiFallback: true,
         hot: true,
-        serveIndex: false,
-        contentBase: path.join(__dirname, 'src'),
         open: true,
         compress: true,
-        watchContentBase: true,
+        static: path.resolve(__dirname, 'src'),
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': '*',
