@@ -5,6 +5,7 @@
     "dependencies": {
         "blip-ds": "^1.177.0",
         "blip-tokens": "^1.31.0",
+        "node-sass": "^7.0.3",
         "react-localization": "^1.0.19",
         "react-router-dom": "^5.3.3",
         "react-scripts": "^5.0.1",
@@ -15,6 +16,7 @@
     "scripts": {
         "start": "webpack serve --mode development --env development --port 5001",
         "build": "webpack --mode development",
+        "build:production": "webpack --mode production --env production",
         "prepare": "husky install",
         "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
         "test:verbose": "jest --passWithNoTests --runInBand",
