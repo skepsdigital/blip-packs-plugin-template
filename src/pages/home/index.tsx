@@ -12,12 +12,12 @@ export const Home: React.FC = () => {
     }, [isSelfOnboarding, setTipoTela]);
 
     const handleGetResource = async () => {
-        const resource = await GetResources('botDeTestes123');
+        const resource = await GetResources('skepsqmqd');
         console.log('Recurso recuperado: ', resource);
     };
 
     const handleSetResources = async () => {
-        const status = await SetResources('botDeTestes123', [
+        const status = await SetResources('skepsqmqd', [
             {
                 name: 'recurso1',
                 value: 'RECURSO 1',
