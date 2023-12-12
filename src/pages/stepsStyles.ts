@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const HomeContainer = styled.div`
+export const StepForm = styled.div`
     width: 100%;
     padding: 24px 8px;
     box-sizing: border-box;

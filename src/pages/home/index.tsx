@@ -2,10 +2,36 @@ import React, { useEffect, useState } from 'react';
 import { useAppContext } from 'src/contexts/AppContext';
 import { GetResources, NextStep, SendTrackingEvent, SetResources, StepBack } from 'src/services/SelfOnboarding';
 import { HomeContainer } from './styles';
+import { AdminInfoStep } from '../AdminInfoStep';
+import { InsuranceStep } from '../InsuranceStep';
 
 export const Home: React.FC = () => {
     const { isSelfOnboarding } = useAppContext();
+    const [currentStep, setCurrentStep] = useState(1);
     const [tipoTela, setTipoTela] = useState<string>('');
+    const [formData, setFormData] = useState({});
+
+    const handleNext = () => {
+        setCurrentStep(currentStep + 1);
+    };
+
+    const handlePrevious = () => {
+        setCurrentStep(currentStep - 1);
+    };
+
+    const renderStep = () => {
+        switch (currentStep) {
+          case 1:
+            return <AdminInfoStep formData={formData} setFormData={setFormData} />;
+          case 2:
+            return <InsuranceStep formData={formData} setFormData={setFormData} />;
+          default:
+            return null;
+        }
+      };
+    
+    const isFirstStep = currentStep === 1;
+    const isLastStep = currentStep === 2;
 
     useEffect(() => {
         setTipoTela(isSelfOnboarding ? 'SelfOnboarding' : 'Central de Packs');
@@ -46,29 +72,39 @@ export const Home: React.FC = () => {
         await StepBack();
     };
 
+    const handleSave = () => {
+        // Handle save logic here with formData
+        console.log('Form data saved:', formData);
+    };
+
     return (
         <HomeContainer>
             <bds-paper elevation="secondary">
                 <h1>Plugin de configuração</h1>
-                {/* <bds-tabs>
-                    <bds-tab group="tab1" label="Basic settings"></bds-tab>
-                    <bds-tab group="tab2" label="Advanced settings"></bds-tab>
-                    <bds-tab group="tab3" label="Very advanced settings para testes de tamanho"></bds-tab>
-                    <bds-tab group="tab4" label="Personal settings"></bds-tab>
-                    <bds-tab group="tab5" label="Common settings"></bds-tab>
-                </bds-tabs>
-                <bds-tab-panel group="tab1">
-                    <bds-typo class="hydrated">Basic settings</bds-typo>
-                </bds-tab-panel>
-                <bds-tab-panel group="tab2"><bds-typo class="hydrated">Advanced settings</bds-typo></bds-tab-panel>
-                <bds-tab-panel group="tab3"><bds-typo class="hydrated">Veryadvanced settings para testes de tamanho</bds-typo></bds-tab-panel>
-                <bds-tab-panel group="tab4"><bds-typo class="hydrated">Personal settings</bds-typo></bds-tab-panel>
-                <bds-tab-panel group="tab5"><bds-typo class="hydrated">Common settings</bds-typo></bds-tab-panel> */}
-                <span>
+
+                {renderStep()}
+
+                {!isFirstStep && (
+                    <button type="button" onClick={handlePrevious}>
+                    Previous
+                    </button>
+                )}
+
+                {isLastStep ? (
+                    <button type="button" onClick={handleSave}>
+                    Save
+                    </button>
+                ) : (
+                    <button type="button" onClick={handleNext}>
+                    Next
+                    </button>
+                )}
+
+                {/* <span>
                     <strong>Tela: {tipoTela}</strong>
-                </span>
+                </span> */}
                 <br />
-                <h3>Exemplo de eventos:</h3>
+                {/* <h3>Exemplo de eventos:</h3>
                 <div id="buttons">
                     <bds-button onClick={handleGetResource}>Get Resource</bds-button>
                     &nbsp;&nbsp;
@@ -79,7 +115,7 @@ export const Home: React.FC = () => {
                     <bds-button onClick={handleMoveNext}>Next Step</bds-button>
                     &nbsp;&nbsp;
                     <bds-button onClick={handleMovePrevious}>Step Back</bds-button>
-                </div>
+                </div> */}
             </bds-paper>
         </HomeContainer>
     );

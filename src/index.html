@@ -8,12 +8,16 @@
 
         <style>
             body,
-            html {
+            html, #container-plugin, #container-plugin-fragment {
                 margin: 0;
                 padding: 0;
                 width: 100%;
                 height: 100%;
-            }
+            };
+            .container-plugin-fragment {
+                display: flex;
+                height: 100%;
+            };
         </style>
     </head>
     <body>
@@ -49,6 +53,7 @@
 
                 const mfe = document.createElement(tagMfe);
                 mfe.id = idMfe;
+                mfe.classList.add('container-plugin-fragment');
                 mfe.setAttributeNS(null, 'pluginProps', JSON.stringify(pluginProps));
                 container?.appendChild(mfe);
             }
